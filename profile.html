@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PROX PULSE — Profile</title>
+  <script src="js/theme.js"></script>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    .profile-posts-heading {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    .profile-posts-heading h2 { font-size: 0.8rem; letter-spacing: 0.14em; margin: 0; }
+    .post-status-row { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-brand">
+        <a href="index.html">PROX<span class="dot">.</span>PULSE <span class="brand-tag">v2</span></a>
+      </div>
+      <div class="nav-links">
+        <a href="index.html">Feed</a>
+        <a href="messages.html" class="nav-authed hidden">Messages</a>
+        <a href="upload.html" class="nav-authed hidden">Upload</a>
+        <a href="profile.html" id="nav-profile-link" class="nav-authed hidden active">Profile</a>
+        <a href="admin.html" class="nav-admin-only hidden">Admin</a>
+      </div>
+      <div class="nav-auth">
+        <div class="nav-live"><div class="live-dot"></div>LIVE</div>
+        <button class="theme-toggle" id="theme-toggle-btn" onclick="toggleTheme()" title="Toggle theme">☀</button>
+        <a href="login.html" class="btn btn-ghost btn-sm nav-guest">Log in</a>
+        <a href="signup.html" class="btn btn-primary btn-sm nav-guest">Sign up</a>
+        <button id="nav-logout-btn" class="btn btn-ghost btn-sm nav-authed hidden">Log out</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container page">
+
+    <!-- Profile header (populated by profile.js) -->
+    <div id="profile-header" class="profile-header">
+      <div style="color:var(--text3);font-family:var(--font-mono);font-size:0.75rem;letter-spacing:0.08em;">
+        // LOADING PROFILE...
+      </div>
+    </div>
+
+    <!-- Edit profile — only visible on own profile -->
+    <div id="profile-edit-section" class="profile-edit-form hidden">
+      <h2>// EDIT PROFILE</h2>
+      <form id="edit-profile-form">
+        <div class="form-group">
+          <label for="edit-name">Display name</label>
+          <input type="text" id="edit-name" placeholder="YourHandle" required/>
+        </div>
+        <div class="form-group">
+          <label for="edit-bio">Bio</label>
+          <textarea id="edit-bio" placeholder="Tell the network who you are..."></textarea>
+        </div>
+        <div id="edit-success" class="form-success"></div>
+        <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;">
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+          <a href="upload.html" class="btn btn-ghost">+ Upload Media</a>
+        </div>
+      </form>
+    </div>
+
+    <!-- Posts grid -->
+    <div class="section-rule">Posts</div>
+
+    <div id="profile-posts" class="feed-grid"></div>
+    <div id="profile-posts-empty" class="empty-state hidden">
+      // NO POSTS YET
+    </div>
+
+  </main>
+
+</div>
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/profile.js"></script>
+</body>
+</html>

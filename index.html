@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PROX PULSE — Feed</title>
+  <script src="js/theme.js"></script>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<div class="page-wrap">
+
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-brand">
+        <a href="index.html">PROX<span class="dot">.</span>PULSE <span class="brand-tag">v2</span></a>
+      </div>
+      <div class="nav-links">
+        <a href="index.html" class="active">Feed</a>
+        <a href="messages.html" class="nav-authed hidden">Messages</a>
+        <a href="upload.html" class="nav-authed hidden">Upload</a>
+        <a href="profile.html" id="nav-profile-link" class="nav-authed hidden">Profile</a>
+        <a href="admin.html" class="nav-admin-only hidden">Admin</a>
+      </div>
+      <div class="nav-auth">
+        <div class="nav-live"><div class="live-dot"></div>LIVE</div>
+        <button class="theme-toggle" id="theme-toggle-btn" onclick="toggleTheme()" title="Toggle theme">☀</button>
+        <a href="login.html" class="btn btn-ghost btn-sm nav-guest">Log in</a>
+        <a href="signup.html" class="btn btn-primary btn-sm nav-guest">Sign up</a>
+        <button id="nav-logout-btn" class="btn btn-ghost btn-sm nav-authed hidden">Log out</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container page">
+    <div class="feed-hero">
+      <div class="page-eyebrow">Community Feed</div>
+      <h1>Approved <span class="hl">drops</span> from the network</h1>
+      <p>Photos and videos from verified promoters — reviewed and approved by PROX admin.</p>
+    </div>
+
+    <div id="feed" class="feed-grid"></div>
+    <div id="feed-empty" class="empty-state hidden">
+      // NO POSTS YET — be the first to upload something
+    </div>
+  </main>
+
+</div>
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/feed.js"></script>
+</body>
+</html>

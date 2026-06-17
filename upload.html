@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PROX PULSE — Upload</title>
+  <script src="js/theme.js"></script>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<div class="page-wrap">
+
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-brand">
+        <a href="index.html">PROX<span class="dot">.</span>PULSE <span class="brand-tag">v2</span></a>
+      </div>
+      <div class="nav-links">
+        <a href="index.html">Feed</a>
+        <a href="messages.html" class="nav-authed hidden">Messages</a>
+        <a href="upload.html" class="nav-authed hidden active">Upload</a>
+        <a href="profile.html" id="nav-profile-link" class="nav-authed hidden">Profile</a>
+        <a href="admin.html" class="nav-admin-only hidden">Admin</a>
+      </div>
+      <div class="nav-auth">
+        <div class="nav-live"><div class="live-dot"></div>LIVE</div>
+        <button class="theme-toggle" id="theme-toggle-btn" onclick="toggleTheme()" title="Toggle theme">☀</button>
+        <a href="login.html" class="btn btn-ghost btn-sm nav-guest">Log in</a>
+        <a href="signup.html" class="btn btn-primary btn-sm nav-guest">Sign up</a>
+        <button id="nav-logout-btn" class="btn btn-ghost btn-sm nav-authed hidden">Log out</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="center-page">
+    <div class="upload-card">
+      <div class="corner-tl"></div>
+      <div class="corner-br"></div>
+
+      <div class="page-eyebrow" style="margin-bottom:0.5rem;">Media Submission</div>
+      <h1>Upload Drop</h1>
+      <p style="color:var(--text3);font-size:0.82rem;margin-bottom:1.5rem;font-family:var(--font-mono);letter-spacing:0.05em;line-height:1.6;">
+        // Files go to PROX admin for review before they hit the public feed.
+      </p>
+
+      <form id="upload-form">
+        <!-- Drop zone -->
+        <div class="upload-drop-zone" id="upload-drop-zone">
+          <input type="file" id="upload-file" accept="image/*,video/*"/>
+          <span class="upload-drop-icon">⬆</span>
+          <p class="upload-drop-text">CLICK OR DRAG TO SELECT FILE</p>
+          <p class="upload-drop-sub">Photos · Videos · Max 100 MB</p>
+        </div>
+
+        <!-- Preview -->
+        <img id="upload-preview" class="upload-preview" src="" alt="Preview"/>
+
+        <!-- Progress bar -->
+        <div class="progress-bar" id="upload-progress">
+          <div class="fill"></div>
+        </div>
+
+        <!-- Caption -->
+        <div class="form-group">
+          <label for="upload-caption">Caption</label>
+          <textarea id="upload-caption" placeholder="Describe the drop... (optional)"></textarea>
+        </div>
+
+        <div id="upload-status" class="form-success"></div>
+
+        <button type="submit" id="upload-submit" class="btn btn-primary btn-block btn-lg">
+          Submit for Review
+        </button>
+      </form>
+    </div>
+  </div>
+
+</div>
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/upload.js"></script>
+<script>
+  // Drag-and-drop wiring for the drop zone
+  const zone = document.getElementById('upload-drop-zone');
+  const fileInput = document.getElementById('upload-file');
+  zone.addEventListener('click', () => fileInput.click());
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault();
+    zone.classList.remove('drag-over');
+    if (e.dataTransfer.files.length) {
+      fileInput.files = e.dataTransfer.files;
+      fileInput.dispatchEvent(new Event('change'));
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PROX PULSE — Messages</title>
+  <script src="js/theme.js"></script>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<div class="page-wrap">
+
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-brand">
+        <a href="index.html">PROX<span class="dot">.</span>PULSE <span class="brand-tag">v2</span></a>
+      </div>
+      <div class="nav-links">
+        <a href="index.html">Feed</a>
+        <a href="messages.html" class="nav-authed hidden active">Messages</a>
+        <a href="upload.html" class="nav-authed hidden">Upload</a>
+        <a href="profile.html" id="nav-profile-link" class="nav-authed hidden">Profile</a>
+        <a href="admin.html" class="nav-admin-only hidden">Admin</a>
+      </div>
+      <div class="nav-auth">
+        <div class="nav-live"><div class="live-dot"></div>LIVE</div>
+        <button class="theme-toggle" id="theme-toggle-btn" onclick="toggleTheme()" title="Toggle theme">☀</button>
+        <a href="login.html" class="btn btn-ghost btn-sm nav-guest">Log in</a>
+        <a href="signup.html" class="btn btn-primary btn-sm nav-guest">Sign up</a>
+        <button id="nav-logout-btn" class="btn btn-ghost btn-sm nav-authed hidden">Log out</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container page" style="padding-bottom: 1.5rem;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.75rem;">
+      <div>
+        <div class="page-eyebrow">Direct Comms</div>
+        <h1 style="font-size:1rem;letter-spacing:0.12em;margin:0;">Messages</h1>
+      </div>
+      <button id="new-message-btn" class="btn btn-primary btn-sm">+ New Conversation</button>
+    </div>
+
+    <div class="messages-layout">
+      <!-- Conversation list -->
+      <div class="conversation-list" id="conversation-list">
+        <div class="conversation-item" style="color:var(--text3);font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.05em;">
+          // LOADING...
+        </div>
+      </div>
+
+      <!-- Chat window -->
+      <div class="chat-window" id="chat-window">
+        <div class="chat-placeholder">
+          <div>
+            <div style="font-size:2rem;opacity:0.2;margin-bottom:0.75rem;">◈</div>
+            <div>Select a conversation<br/>or start a new one</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+</div>
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/messages.js"></script>
+</body>
+</html>

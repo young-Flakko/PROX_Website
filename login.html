@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PROX PULSE — Login</title>
+  <script src="js/theme.js"></script>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<div class="page-wrap">
+
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-brand">
+        <a href="index.html">PROX<span class="dot">.</span>PULSE <span class="brand-tag">v2</span></a>
+      </div>
+      <div class="nav-links">
+        <a href="index.html">Feed</a>
+      </div>
+      <div class="nav-auth">
+        <button class="theme-toggle" id="theme-toggle-btn" onclick="toggleTheme()" title="Toggle theme">☀</button>
+        <a href="signup.html" class="btn btn-ghost btn-sm">Sign up</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="center-page">
+    <div class="auth-card">
+      <div class="corner-tl"></div>
+      <div class="corner-br"></div>
+
+      <div class="auth-logo">PROX<span style="color:var(--text2)">.</span>PULSE</div>
+      <h1>Access Terminal</h1>
+      <p class="subtitle">// ENTER CREDENTIALS TO PROCEED</p>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label for="login-email">Email address</label>
+          <input type="email" id="login-email" placeholder="operator@pulse.net" required autocomplete="username"/>
+        </div>
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" placeholder="••••••••••••" required autocomplete="current-password"/>
+        </div>
+        <div id="login-error" class="form-error"></div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-top:0.75rem">
+          Authenticate
+        </button>
+      </form>
+
+      <p class="switch-link">
+        No account? <a href="signup.html">Request access →</a>
+      </p>
+    </div>
+  </div>
+
+</div>
+<script type="module" src="js/auth.js"></script>
+</body>
+</html>

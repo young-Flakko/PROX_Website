@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PROX PULSE — Admin</title>
+  <script src="js/theme.js"></script>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    /* Extra admin-specific glow on the hot-coloured page title */
+    .admin-hero h1 { text-shadow: 0 0 18px rgba(255,42,109,0.45); }
+
+    /* Access denied box */
+    .access-denied {
+      background: var(--surface);
+      border: 1px solid var(--hot);
+      border-radius: var(--radius);
+      padding: 3rem 2rem;
+      text-align: center;
+      max-width: 420px;
+      margin: 4rem auto;
+      box-shadow: 0 0 24px var(--hot2);
+    }
+    .access-denied h2 {
+      color: var(--hot);
+      font-size: 1.1rem;
+      letter-spacing: 0.14em;
+      margin-bottom: 0.75rem;
+    }
+    .access-denied p {
+      color: var(--text3);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      line-height: 1.6;
+    }
+
+    /* Pending posts highlight */
+    .admin-table tr.pending-row { border-left: 2px solid var(--gold); }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-brand">
+        <a href="index.html">PROX<span class="dot">.</span>PULSE <span class="brand-tag">v2</span></a>
+      </div>
+      <div class="nav-links">
+        <a href="index.html">Feed</a>
+        <a href="messages.html" class="nav-authed hidden">Messages</a>
+        <a href="upload.html" class="nav-authed hidden">Upload</a>
+        <a href="profile.html" id="nav-profile-link" class="nav-authed hidden">Profile</a>
+        <a href="admin.html" class="nav-admin-only hidden active">Admin</a>
+      </div>
+      <div class="nav-auth">
+        <div class="nav-live"><div class="live-dot"></div>LIVE</div>
+        <button class="theme-toggle" id="theme-toggle-btn" onclick="toggleTheme()" title="Toggle theme">☀</button>
+        <a href="login.html" class="btn btn-ghost btn-sm nav-guest">Log in</a>
+        <a href="signup.html" class="btn btn-primary btn-sm nav-guest">Sign up</a>
+        <button id="nav-logout-btn" class="btn btn-ghost btn-sm nav-authed hidden">Log out</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container page">
+
+    <!-- Access denied (shown when not admin) -->
+    <div id="admin-denied" class="access-denied hidden">
+      <h2>⛔ ACCESS DENIED</h2>
+      <p>This terminal is restricted to PROX administrators only.<br/>
+      Contact your system operator to request elevated access.</p>
+    </div>
+
+    <!-- Admin content -->
+    <div id="admin-content">
+
+      <!-- Hero -->
+      <div class="admin-hero">
+        <div>
+          <div class="page-eyebrow" style="color:var(--hot);">Restricted Zone</div>
+          <h1>Command Center</h1>
+          <p class="admin-sub">// FULL PLATFORM AUTHORITY — ALL TRANSACTIONS CONTROLLED HERE</p>
+        </div>
+        <a href="index.html" class="btn btn-ghost btn-sm">← Exit Admin</a>
+      </div>
+
+      <!-- Stats row -->
+      <div class="admin-stats" id="admin-stats-row">
+        <!-- Populated dynamically after data loads -->
+        <div class="a-stat c">
+          <div class="a-num c" id="stat-posts">—</div>
+          <div class="a-label">Total Posts</div>
+        </div>
+        <div class="a-stat g">
+          <div class="a-num g" id="stat-public">—</div>
+          <div class="a-label">Public</div>
+        </div>
+        <div class="a-stat y">
+          <div class="a-num y" id="stat-pending">—</div>
+          <div class="a-label">Pending</div>
+        </div>
+        <div class="a-stat v">
+          <div class="a-num v" id="stat-users">—</div>
+          <div class="a-label">Users</div>
+        </div>
+        <div class="a-stat r">
+          <div class="a-num r" id="stat-disabled">—</div>
+          <div class="a-label">Disabled</div>
+        </div>
+      </div>
+
+      <!-- Posts moderation -->
+      <div class="admin-section">
+        <h2>Media Approval Queue</h2>
+        <p class="section-desc">
+          // Approve or hide posts. Only approved posts appear on the public feed.
+          New uploads start as <span style="color:var(--gold)">pending</span>.
+        </p>
+        <div style="overflow-x:auto;">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Preview</th>
+                <th>Promoter</th>
+                <th>Caption</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="admin-posts-body">
+              <tr><td colspan="5" style="color:var(--text3);font-family:var(--font-mono);font-size:0.72rem;padding:1.5rem;text-align:center;letter-spacing:0.08em;">// LOADING POSTS...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- User management -->
+      <div class="admin-section">
+        <h2>User Management</h2>
+        <p class="section-desc">
+          // Enable or disable promoter accounts. Disabled accounts cannot log in.
+          Change a user's <span style="color:var(--neon)">role</span> field in Firestore to <code style="color:var(--violet);font-family:var(--font-mono)">"admin"</code> to grant admin access.
+        </p>
+        <div style="overflow-x:auto;">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="admin-users-body">
+              <tr><td colspan="4" style="color:var(--text3);font-family:var(--font-mono);font-size:0.72rem;padding:1.5rem;text-align:center;letter-spacing:0.08em;">// LOADING USERS...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Setup instructions -->
+      <div class="admin-section" style="border-color:var(--border);background:var(--bg2);">
+        <h2 style="color:var(--text3);">Setup Checklist</h2>
+        <p class="section-desc">// Quick-reference for wiring up the Firebase backend</p>
+        <ol style="color:var(--text2);font-family:var(--font-mono);font-size:0.75rem;letter-spacing:0.04em;line-height:2;padding-left:1.25rem;">
+          <li>Create a Firebase project at <a href="https://console.firebase.google.com" target="_blank">console.firebase.google.com</a></li>
+          <li>Enable <strong style="color:var(--neon)">Email/Password</strong> authentication</li>
+          <li>Create a <strong style="color:var(--neon)">Firestore</strong> database (test mode to start)</li>
+          <li>Paste your config values into <code style="color:var(--violet)">js/firebase-config.js</code></li>
+          <li>Sign up, then manually set your Firestore user's <code style="color:var(--violet)">role</code> to <code style="color:var(--violet)">"admin"</code></li>
+          <li>Create a <strong style="color:var(--neon)">Cloudinary</strong> unsigned upload preset and fill in the config</li>
+          <li>Add Firestore Security Rules before going live (see comments in firebase-config.js)</li>
+        </ol>
+      </div>
+
+    </div><!-- /admin-content -->
+  </main>
+
+</div>
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/admin.js"></script>
+<script type="module">
+  // Wire up live stat counters from the admin table once it loads
+  // (admin.js populates the tables; we observe the DOM for count)
+  const observer = new MutationObserver(() => {
+    const rows = document.querySelectorAll('#admin-posts-body tr');
+    const publicRows = [...rows].filter(r => r.querySelector('.badge-public'));
+    const pendingRows = [...rows].filter(r => r.querySelector('.badge-hidden'));
+    const userRows = document.querySelectorAll('#admin-users-body tr');
+    const disabledRows = [...userRows].filter(r => r.querySelector('[data-disabled="true"]'));
+
+    const sp = document.getElementById('stat-posts');
+    const sg = document.getElementById('stat-public');
+    const sy = document.getElementById('stat-pending');
+    const sv = document.getElementById('stat-users');
+    const sr = document.getElementById('stat-disabled');
+    if (sp) sp.textContent = rows.length;
+    if (sg) sg.textContent = publicRows.length;
+    if (sy) sy.textContent = pendingRows.length;
+    if (sv) sv.textContent = userRows.length;
+    if (sr) sr.textContent = disabledRows.length;
+  });
+  observer.observe(document.getElementById('admin-content'), { childList: true, subtree: true });
+</script>
+</body>
+</html>
